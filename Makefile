@@ -1,12 +1,13 @@
-SOURCE_DIR := $(shell pwd)
+SOURCE_DIR   := $(shell pwd)
+DISTRIBUTION := $(basename $(notdir $(SOURCE_DIR)))
 
 DEFAULT: clean
 
 .PHONY: clean
 clean:
-	@rm -f vim-config.tar.gz
+	@rm -f $(DISTRIBUTION).tar.gz
 	@find files -type f -mindepth 2 ! -name '.gitkeep' -print -delete
 
 .PHONY: archive
 archive: clean
-	@b=vim-config.tar.gz; tar --exclude=$$b -czf $$b .
+	@b=$(DISTRIBUTION).tar.gz; tar --exclude=$$b -czf $$b .
