@@ -1,11 +1,18 @@
 *.tar.gz
 
+# ignore files in `cache`
+/cache/*
+!/cache/.gitkeep
+
+# ignore files in `autoload`
 /autoload/*
 !/autoload/.gitkeep
 
+# ignore files in `plugged`
 /plugged/*
 !/plugged/.gitkeep
 
+# ignore files in `files`
 /files/*
 !/files/backup/
 /files/backup/*
