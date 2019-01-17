@@ -133,6 +133,7 @@ set ffs=unix,dos,mac " Use Unix as the standard file type
 set nobackup
 set nowb
 set noswapfile
+set tags=./.tags;,.tags   " tag file, current directory first, then from parent directory
 
 
 

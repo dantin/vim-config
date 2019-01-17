@@ -19,6 +19,7 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
@@ -69,8 +70,9 @@ let g:lightline = {
 " => LeaderF
 """"""""""""""""""""""""""""""
 let g:Lf_ShortcutF = '<c-p>'
+"let g:Lf_ShortcutB = '<m-n>'
 noremap <c-n> :LeaderfMru<cr>
-"noremap <m-p> :LeaderfFunction!<cr>
+noremap <leader>f :LeaderfFunction!<cr>
 "noremap <m-n> :LeaderfBuffer<cr>
 "noremap <m-m> :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
