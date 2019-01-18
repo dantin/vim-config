@@ -106,8 +106,9 @@ endif
 
 " Set color scheme
 try
-    colorscheme desert
+    colorscheme monokai       " Prefered color scheme
 catch
+    colorscheme desert        " Default color schceme
 endtry
 
 set background=dark
