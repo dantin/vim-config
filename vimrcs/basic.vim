@@ -106,8 +106,9 @@ endif
 
 " Set color scheme
 try
-    colorscheme desert
+    colorscheme monokai       " Prefered color scheme
 catch
+    colorscheme desert        " Default color schceme
 endtry
 
 set background=dark
@@ -133,6 +134,7 @@ set ffs=unix,dos,mac " Use Unix as the standard file type
 set nobackup
 set nowb
 set noswapfile
+set tags=./.tags;,.tags   " tag file, current directory first, then from parent directory
 
 
 

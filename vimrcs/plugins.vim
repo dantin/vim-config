@@ -19,6 +19,7 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
@@ -69,8 +70,9 @@ let g:lightline = {
 " => LeaderF
 """"""""""""""""""""""""""""""
 let g:Lf_ShortcutF = '<c-p>'
+"let g:Lf_ShortcutB = '<m-n>'
 noremap <c-n> :LeaderfMru<cr>
-"noremap <m-p> :LeaderfFunction!<cr>
+noremap <leader>f :LeaderfFunction!<cr>
 "noremap <m-n> :LeaderfBuffer<cr>
 "noremap <m-m> :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
@@ -93,3 +95,16 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_confrm_extra_conf=0
 inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 set completeopt=longest,menu
+
+" NOTE: Key conflict with UltiSnips and YouCompleteMe
+"       solution: https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme/22253548#22253548
+"
+"" make YCM compatible with UltiSnips (using supertab)
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+"
+"" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
