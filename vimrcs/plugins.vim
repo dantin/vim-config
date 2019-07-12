@@ -9,6 +9,7 @@
 "   -> lightline
 "   -> LeaderF
 "   -> YouCompleteMe
+"   -> vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -17,8 +18,11 @@
 " => Vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'ervandew/supertab'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -100,11 +104,51 @@ set completeopt=longest,menu
 "       solution: https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme/22253548#22253548
 "
 "" make YCM compatible with UltiSnips (using supertab)
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 "
 "" better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+""""""""""""""""""""""""""""""
+" => Go-lang support
+""""""""""""""""""""""""""""""
+
+" automatically wite file when call :GoBuild
+set autowrite
+
+" whenever you save the file, `goimports` will automatically format and also
+" rewrite the import declarations.
+" TLDR; `goimports` is a replacement for `gofmt`.
+let g:go_fmt_command = "goimports"
+" style
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+" Enable linting
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['golint']
+
+autocmd FileType go map <C-n> :cnext<CR>
+autocmd FileType go map <C-m> :cprevious<CR>
+autocmd FileType go nnoremap <leader>a :cclose<CR>
+
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+    let l:file = expand('%')
+    if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+    elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+    endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
