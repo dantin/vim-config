@@ -8,7 +8,8 @@ This repository contains:
 
 1. The vimrc config
 2. Plugins managed by `vim-plug`
-3. The scripts that make your life easy.
+3. Autoload plugins by hand
+4. The scripts that make your life easy
 
 ## Table of Contents
 
@@ -38,7 +39,7 @@ You can clone the repository wherever you want. (I like to keep it in `~/Documen
 The bootstrapper script will pull in the latest version.
 
     $ git clone https://github.com/dantin/vim-config.git && cd vim-config
-    $ pip install -r requirements.txt
+    $ ./bootstrap.sh
 
 ## Usage
 
@@ -61,5 +62,3 @@ Free free to [Open an issue](https://github.com/dantin/vim-config/issues/new) or
 ## License
 
 [BSD 3 Clause](LICENSE) © David Ding
-
-

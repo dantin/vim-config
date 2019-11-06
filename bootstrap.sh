@@ -54,3 +54,17 @@ if [ ! -e "$BASE_PATH/colors/monokai.vim" ]; then
     msg "Install 'vim-monokai' from Internet"
     download_resource "$BASE_PATH/colors/monokai.vim" "https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim"
 fi
+
+msg "Install Vim plugins"
+vim +PlugInstall +qall 1>/dev/null 2>&1
+
+msg "Build Plugin LeaderF"
+cd $BASE_PATH/plugged/LeaderF
+./install.sh
+
+msg "Build Plugina YCM "
+cd $BASE_PATH/plugged/YouCompleteMe
+./install.sh
+
+ret="$?"
+success "Config Vim complete"
