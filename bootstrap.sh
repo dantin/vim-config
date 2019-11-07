@@ -34,24 +34,24 @@ download_resource() {
 # .vimrc
 if [ ! -e $HOME/.vimrc ]; then
     msg "Create symbolic link \"$HOME/.vimrc\" -> \"$BASE_PATH/vimrc\""
-    echo ln -s $BASE_PATH/vimrc $HOME/.vimrc
+    ln -s $BASE_PATH/vimrc $HOME/.vimrc
 fi
 
 # .vim
 if [ ! -e $HOME/.vim ]; then
     msg "Create symbolic link \"$HOME/.vim\" -> \"$BASE_PATH\""
-    echo ln -s $BASE_PATH $HOME/.vim
+    ln -s $BASE_PATH $HOME/.vim
 fi
 
 # vim-plug
 if [ ! -e "$BASE_PATH/autoload/plug.vim" ]; then
-    msg "Install 'vim-plug' from Internet"
+    msg "Install 'vim-plug'"
     download_resource "$BASE_PATH/autoload/plug.vim" "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 fi
 
 # vim-monokai
 if [ ! -e "$BASE_PATH/colors/monokai.vim" ]; then
-    msg "Install 'vim-monokai' from Internet"
+    msg "Install 'vim-monokai'"
     download_resource "$BASE_PATH/colors/monokai.vim" "https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim"
 fi
 
@@ -60,11 +60,11 @@ vim +PlugInstall +qall 1>/dev/null 2>&1
 
 msg "Build Plugin LeaderF"
 cd $BASE_PATH/plugged/LeaderF
-./install.sh
+source install.sh
 
 msg "Build Plugina YCM "
 cd $BASE_PATH/plugged/YouCompleteMe
-./install.sh
+source install.sh
 
 ret="$?"
 success "Config Vim complete"
