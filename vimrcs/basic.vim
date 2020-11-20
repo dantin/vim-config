@@ -113,6 +113,10 @@ endtry
 
 set background=dark
 
+" Make background transparent
+hi! Normal ctermbg=None
+hi! NonText ctermbg=None
+
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
