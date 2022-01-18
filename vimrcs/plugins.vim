@@ -17,8 +17,16 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Steps to add plugin
+" 1. Add plugins between `plug` directives;
+" 2. Do a `:source ~/.vimrc`;
+" 3. Run `:PlugInstall` to install;
 call plug#begin('~/.vim/plugged')
+" splitjoin split/join the struct expression into multiple lines.
+" usage: `gS` split, `gJ` join
 Plug 'AndrewRadev/splitjoin.vim'
+" ultisnips is a snippet plugin.
+" NOTE: UltiSnips and YouCompleteMe may conflice on [tab] button.
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
@@ -117,14 +125,26 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 """"""""""""""""""""""""""""""
 " => Go-lang support
 """"""""""""""""""""""""""""""
-
+" More detail information can be found on [vim-go wiki](https://github.com/fatih/vim-go/wiki/Tutorial).
 " automatically wite file when call :GoBuild
 set autowrite
 
+" `:GoTest` times out after 10 seconds by default, you can changed the timeout value
+let g:go_test_timeout = '10s'
+" whenever you save the file, whether `gofmt` is called, the default is 1
+let g:go_fmt_autosave = 1
 " whenever you save the file, `goimports` will automatically format and also
 " rewrite the import declarations.
-" TLDR; `goimports` is a replacement for `gofmt`.
+"
+" Package related:
+"   `:GoImport strings` to add a given package to import path
+"   `:GoImportAs str strings` to import `strings` with the package name `str`
+"   `:GoDrop strings` to remove any import declaration from path
+" TLDR; `goimports` is a replacement for `gofmt`, which automatically format and rewrite import declarations.
+" It might be slow on very large codebase, you can use `:GoImports` to explicityly call `goimports`.
 let g:go_fmt_command = "goimports"
+" Domments as a part of the function declaration, set `0` to disable it. (Used with `vif`, `vaf`, etc.)
+let g:go_textobj_include_function_doc = 1
 " style
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -137,11 +157,12 @@ autocmd FileType go map <C-n> :cnext<CR>
 autocmd FileType go map <C-m> :cprevious<CR>
 autocmd FileType go nnoremap <leader>a :cclose<CR>
 
+" Run `go-run` using `,r`.
 autocmd FileType go nmap <leader>r <Plug>(go-run)
+" Run `go-test` using `,t`.
 autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
-" run :GoBuild or :GoTestCompile based on the go file
+" run :GoBuild or :GoTestCompile based on the whether the go file is a `_test.go`.
 function! s:build_go_files()
     let l:file = expand('%')
     if l:file =~# '^\f\+_test\.go$'
@@ -151,4 +172,21 @@ function! s:build_go_files()
     endif
 endfunction
 
+" Run `build_go_files` function using `,t`.
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" Run `go-coverage-toggle` using `,c`.
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+
+" snips
+" `errp` ->
+"       if err != nil {
+"           panic(  )
+"       }
+" `fn` ->
+"       fmt.Println()
+" `ff` ->
+"       fmt.Printf()
+" `ln` ->
+"       log.Println()
+" `lf` ->
+"       log.Printf()
