@@ -49,7 +49,7 @@ cd $BASE_PATH/plugged/LeaderF
 
 msg "Rebuild Plugina YCM "
 cd $BASE_PATH/plugged/YouCompleteMe
-./install.sh
+python3 install.py
 
 ret="$?"
 success "Vim configuration updated"
