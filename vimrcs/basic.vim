@@ -44,8 +44,8 @@ set so =6 " Set 6 lines to the cursor - when moving vertically using j/k
 " Avoid garbled characters in Chinese language windows OS
 let $LANG   ='en'
 set langmenu=en
-source $VIMRUNTIME/delmenu.vim  " `:!echo $VIMRUNTIME` to find out
-source $VIMRUNTIME/menu.vim
+"source $VIMRUNTIME/delmenu.vim  " `:!echo $VIMRUNTIME` to find out
+"source $VIMRUNTIME/menu.vim
 
 " Turn on the Wild menu
 set wildmenu    " wildmenu add wildmode are used for command line completion
