@@ -190,3 +190,4 @@ autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 "       log.Println()
 " `lf` ->
 "       log.Printf()
+
