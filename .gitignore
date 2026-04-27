@@ -4,13 +4,13 @@
 /autoload/*
 !/autoload/.gitkeep
 
-# ignore files in `colors`.
-/colors/*
-!/colors/.gitkeep
-
 # ignore files in `cache`.
 /cache/*
 !/cache/.gitkeep
+
+# local undo (see vimrc undodir)
+/undodir/
+!/undodir/.gitkeep
 
 # ignore files in `plugged`.
 /plugged/*
