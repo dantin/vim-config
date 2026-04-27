@@ -1,7 +1,24 @@
 " Defer <CR> handling to coc when completion is active (auto-pairs is loaded here)
 let g:AutoPairsMapCR = 0
 
-call plug#begin('~/.vim/plugged')
+" NERDTree :NERDTree* / :NERDTreeFind are user commands; E492 if NERDTree is not
+" in &runtimepath. Neovim’s default :PlugInstall target is
+" stdpath('data')/plugged (~/.local/share/nvim/plugged), not ~/.vim/plugged.
+" Prefer a non-empty plugged/ next to this vimrc; otherwise Nvim data dir; else ~/.vim/plugged
+function! s:plug_dir() abort
+  let c = get(g:, 'vimrc_config_dir', '')
+  if c !=# ''
+    let p = fnamemodify(c . '/plugged', ':p')
+    if isdirectory(p) && glob(p . '/*', 0, 0) !=# ''
+      return p
+    endif
+  endif
+  if has('nvim')
+    return stdpath('data') . '/plugged'
+  endif
+  return expand('~/.vim/plugged')
+endfunction
+call plug#begin(s:plug_dir())
 
 " LSP and completion
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -28,6 +45,8 @@ Plug 'junegunn/fzf.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+" We define LazyVim-style maps in vimrcs/git.vim; disable gitgutter defaults
+let g:gitgutter_map_keys = 0
 
 call plug#end()
 

@@ -1,5 +1,6 @@
-" Leader (space)
-nnoremap <space> <nop>
+" Leader: must not nnoremap <Space> to <Nop> — a Normal-mode <Space> map
+" consumes the key and breaks <Leader>… maps (e.g. <Space>e for NERDTree).
+" A single Space in Normal mode may scroll; use a leader prefix for tree, etc.
 let g:mapleader = "\<Space>"
 
 " Clear search highlight (Normal mode)

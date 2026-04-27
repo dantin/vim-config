@@ -9,7 +9,7 @@
 !/cache/.gitkeep
 
 # local undo (see vimrc undodir)
-/undodir/
+/undodir/*
 !/undodir/.gitkeep
 
 # ignore files in `plugged`.

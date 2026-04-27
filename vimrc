@@ -6,11 +6,14 @@
 "   keymaps    leader, windows, NERDTree, buffers
 "   coc        LSP / completion
 "   fzf        ripgrep + fzf.vim
+"   git        fugitive + gitgutter (LazyVim-style <leader>g* / ]h)
 " =============================================================================
 
 let s:cfg = !empty($MYVIMRC)
       \ ? fnamemodify(resolve(expand($MYVIMRC)), ':h')
       \ : fnamemodify(expand('<sfile>'), ':p:h')
+" Where plug#begin() looks: see vimrcs/plugs.vim
+let g:vimrc_config_dir = s:cfg
 
 " Persistent undo next to this repo (e.g. ~/.vim/undodir when ~/.vim is this dir)
 let s:undod = fnamemodify(s:cfg . '/undodir', ':p')
@@ -27,6 +30,7 @@ for s:mod in [
       \ 'keymaps',
       \ 'coc',
       \ 'fzf',
+      \ 'git',
       \ ]
   execute 'source' fnameescape(s:cfg . '/vimrcs/' . s:mod . '.vim')
 endfor
