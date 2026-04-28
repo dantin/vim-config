@@ -82,8 +82,41 @@ show_help() {
   msg "  Link this repo to ~/.vimrc and ~/.vim, install vim-plug if needed, run :PlugInstall."
   msg ""
   msg "Environment:"
-  msg "  VIM_BIN       Vim binary (default: vim)"
+  msg "  VIM_BIN       Vim binary (default: vim); Neovim supported."
   msg "  INSTALL_VERBOSE=1   Show curl and vim output"
+}
+
+# Non-interactive PlugInstall must avoid: (1) -- More -- / hit-ENTER with output redirected;
+# (2) loading coc/LSP/UI maps without a TTY. install.sh sets VIM_PLUG_BOOTSTRAP for a
+# minimal vimrc; we also set nomore, high cmdheight, --not-a-term (Vim) or --headless (nvim),
+# and attach stdin to /dev/null so nothing waits for keys.
+run_vim_plug_install() {
+  export VIM_PLUG_BOOTSTRAP=1
+  local -a vim_args=(
+    -N
+    -i NONE
+    --cmd 'set nomore'
+    --cmd 'set shortmess=atTI'
+    --cmd 'set cmdheight=99'
+  )
+  case $(basename "$VIM_BIN") in
+    nvim)
+      vim_args+=(--headless)
+      ;;
+    *)
+      vim_args+=(--not-a-term)
+      ;;
+  esac
+
+  set +e
+  if install_verbose; then
+    "$VIM_BIN" "${vim_args[@]}" +PlugInstall +qa! </dev/null
+  else
+    "$VIM_BIN" "${vim_args[@]}" +PlugInstall +qa! &>/dev/null </dev/null
+  fi
+  ret=$?
+  set -e
+  unset VIM_PLUG_BOOTSTRAP
 }
 
 #### main
@@ -111,13 +144,7 @@ if [ ! -e "$BASE_PATH/autoload/plug.vim" ]; then
 fi
 
 msg "Install Vim plugins (${VIM_BIN}: vim-plug, coc, fzf, …)"
-# vim-plug installs synchronously while Vim is starting (see plug.vim: vim_starting). +qa! avoids hanging on quit/save prompts when not on a TTY.
-if install_verbose; then
-  "$VIM_BIN" +PlugInstall +qa!
-else
-  "$VIM_BIN" +PlugInstall +qa! &>/dev/null
-fi
-ret=$?
+run_vim_plug_install
 if [ "$ret" -ne 0 ]; then
   error "PlugInstall failed (${VIM_BIN} exit ${ret}). Try INSTALL_VERBOSE=1 $(basename "$0"). Is '${VIM_BIN}' on PATH and working?"
 fi

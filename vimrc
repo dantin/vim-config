@@ -23,15 +23,23 @@ endif
 execute 'set undodir=' . fnameescape(s:undod)
 set undofile
 
-for s:mod in [
-      \ 'options',
-      \ 'plugs',
-      \ 'appearance',
-      \ 'keymaps',
-      \ 'coc',
-      \ 'fzf',
-      \ 'git',
-      \ ]
+" Scripted :PlugInstall (install.sh): no real TTY; skip UI/LSP layers or Vim waits on
+" -- More -- / coc startup / prompts with no stdin. See VIM_PLUG_BOOTSTRAP in install.sh.
+if $VIM_PLUG_BOOTSTRAP ==# '1'
+  let s:modlist = ['options', 'plugs']
+else
+  let s:modlist = [
+        \ 'options',
+        \ 'plugs',
+        \ 'appearance',
+        \ 'keymaps',
+        \ 'coc',
+        \ 'fzf',
+        \ 'git',
+        \ ]
+endif
+
+for s:mod in s:modlist
   execute 'source' fnameescape(s:cfg . '/vimrcs/' . s:mod . '.vim')
 endfor
-unlet s:mod s:cfg s:undod
+unlet s:mod s:cfg s:undod s:modlist
