@@ -59,6 +59,18 @@ let g:airline_powerline_fonts = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 0
 
+" cmdheight larger than usable rows triggers E36 (Not enough room) in airline_toggle.
+function! s:vimrc_cap_cmdheight() abort
+  let cap = max([1, &lines - 3])
+  if &cmdheight > cap
+    let &cmdheight = cap
+  endif
+endfunction
+augroup vimrc_cmdheight_cap
+  autocmd!
+  autocmd VimEnter, VimResized * call s:vimrc_cap_cmdheight()
+augroup END
+
 " NERDTree
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeIgnore = ['\.pyc$', '__pycache__', '^\.git$']

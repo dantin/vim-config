@@ -88,8 +88,8 @@ show_help() {
 
 # Non-interactive PlugInstall must avoid: (1) -- More -- / hit-ENTER with output redirected;
 # (2) loading coc/LSP/UI maps without a TTY. install.sh sets VIM_PLUG_BOOTSTRAP for a
-# minimal vimrc; we also set nomore, high cmdheight, --not-a-term (Vim) or --headless (nvim),
-# and attach stdin to /dev/null so nothing waits for keys.
+# minimal vimrc; we also set nomore, bounded cmdheight (99 caused E36 with vim-airline when
+# &lines is small), --not-a-term (Vim) or --headless (nvim), and stdin from /dev/null.
 run_vim_plug_install() {
   export VIM_PLUG_BOOTSTRAP=1
   local -a vim_args=(
@@ -97,7 +97,7 @@ run_vim_plug_install() {
     -i NONE
     --cmd 'set nomore'
     --cmd 'set shortmess=atTI'
-    --cmd 'set cmdheight=99'
+    --cmd 'let &cmdheight = min([3, max([1, &lines - 2])])'
   )
   case $(basename "$VIM_BIN") in
     nvim)
