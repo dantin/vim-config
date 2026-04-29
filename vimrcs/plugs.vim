@@ -55,7 +55,7 @@ let g:go_gopls_enabled = 0
 let g:go_def_mapping_enabled = 0
 
 " Airline: set to 1 if you use a patched Nerd / Powerline font
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 0
 
@@ -72,6 +72,11 @@ augroup vimrc_cmdheight_cap
 augroup END
 
 " NERDTree
+" Box Drive puts ~/.Box_* paths that NERDTree cannot stat; NERDTreeIgnore only
+" hides them in the UI. To stop "Invalid file(s)" warnings, wildignore must
+" exclude them before glob (requires NERDTreeRespectWildIgnore; see :h 'wildignore').
+set wildignore+=.Box_*,.BOX_*
+let g:NERDTreeRespectWildIgnore = 1
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeIgnore = ['\.pyc$', '__pycache__', '^\.git$']
 let g:NERDTreeAutoDeleteBuffer = 1

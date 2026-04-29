@@ -12,6 +12,7 @@
 let s:cfg = !empty($MYVIMRC)
       \ ? fnamemodify(resolve(expand($MYVIMRC)), ':h')
       \ : fnamemodify(expand('<sfile>'), ':p:h')
+
 " Where plug#begin() looks: see vimrcs/plugs.vim
 let g:vimrc_config_dir = s:cfg
 
