@@ -5,11 +5,11 @@ endif
 
 " Extensions installed on :CocInstall (or on first use)
 let g:coc_global_extensions = [
-      \ 'coc-pyright',
       \ 'coc-clangd',
       \ 'coc-go',
       \ 'coc-json',
       \ 'coc-snippets',
+      \ '@yaegassy/coc-ruff',
       \ ]
 
 " Completion: Tab / Shifttab

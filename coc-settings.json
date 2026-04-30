@@ -1,0 +1,23 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "c",
+    "cpp",
+    "objc",
+    "objcpp",
+    "json"
+  ],
+
+  "ruff.enable": true,
+  "ruff.autoFixOnSave": true,
+
+  "clangd.path": "clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--fallback-style=llvm"
+  ],
+
+  "snippets.ultisnips.pythonPrompt": false
+}

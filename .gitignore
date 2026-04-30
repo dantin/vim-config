@@ -30,3 +30,5 @@
 !/files/swap/
 /files/swap/*
 !/files/swap/.gitkeep
+
+*.swp

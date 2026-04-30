@@ -44,3 +44,4 @@ set backspace=indent,eol,start             " allow Backspace over autoindent, li
 
 " Go: official style uses tabs
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4  " Go: real tabs, width 4 (gofmt style)
+autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab  " JSON
