@@ -24,6 +24,13 @@ endif
 execute 'set undodir=' . fnameescape(s:undod)
 set undofile
 
+" CoC Node.js configuration with fallback detection
+if executable(expand('~/.local/bin/vim-node'))
+  let g:coc_node_path = expand('~/.local/bin/vim-node')
+elseif executable('node')
+  let g:coc_node_path = exepath('node')
+endif
+
 " Scripted :PlugInstall (install.sh): no real TTY; skip UI/LSP layers or Vim waits on
 " -- More -- / coc startup / prompts with no stdin. See VIM_PLUG_BOOTSTRAP in install.sh.
 if $VIM_PLUG_BOOTSTRAP ==# '1'
