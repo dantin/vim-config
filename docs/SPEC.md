@@ -29,6 +29,23 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 If the config lives in a clone and `~/.vim` is symlinked to that directory (as in `bootstrap.sh`), install to **`$REPO/autoload/plug.vim`** instead of `~/.vim/...` so the path matches.
 
+### Install node
+
+The script clones the nvm repository to `~/.nvm` and adds the source lines to your profile (`~/.bashrc`, `~/.zshrc`, or `~/.profile`).
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+```
+
+Install `Node.js` via `nvm`.
+
+```bash
+nvm install --lts
+nvm alias default 'lts/*'
+mkdir -p ~/.local/bin
+ln -sf $(nvm which default) ~/.local/bin/vim-node
+```
+
 ### First-time inside Vim
 
 After `vim-plug` and this config are in place:
