@@ -32,7 +32,11 @@ if exists('+signcolumn')
   " only if this Vim build supports signcolumn (Neovim/modern Vim) show sign column when needed (errors, marks, git, …)
   set signcolumn=auto
 endif
-set clipboard=unnamedplus                  " use system clipboard (+ register) for yank/paste when unnamed
+if has('mac')
+  set clipboard=unnamed                      " use system clipboard (* register) on macOS
+else
+  set clipboard=unnamedplus                  " use system clipboard (+ register) on Linux/Windows
+endif
 set mouse=a                                " enable mouse in all modes (visual, normal, insert, …)
 set hidden                                 " allow switching buffers without saving (keep unsaved in background)
 set pumheight=12                           " max height of insert-mode completion popup menu
